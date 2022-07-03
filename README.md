@@ -9,3 +9,9 @@ Important: This is an extension to Raymap (<https://github.com/byvar/raymap/>) a
 3. Open the Unity Project.
 4. Open the MapViewer scene.
 5. Add the RaymapGame.prefab to the scene.
+6. Add the MultiplayerManager.prefab to the scene.
+
+To start as host press 'H' when the scene starts
+To join a host press 'J' when the scene starts
+
+Currently only local connection is supported (for testing), can be changed through the ServerHostScript and ClientScript
