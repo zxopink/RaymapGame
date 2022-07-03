@@ -304,7 +304,10 @@ namespace RaymapGame.Rayman2.Persos {
             if (mount is BNT_ThePrune)
                 mount.GiveImpulse(-forward * 7);
 
-            SFX("Rayman2/Rayman/shoot/Swhish5").Play(0.04f);
+            int[] arr = { Anim.ShootLoopApex, Anim.ShootLoopBackUpTop, Anim.ShootLoopChuckAndJump, Anim.ShootLoopChuckAndJumpFollowThrough };
+            anim.Set(Anim.ShootLoopApex, 1);
+            //SFX("Rayman2/Rayman/jump").Play();
+            //SFX("Rayman2/Rayman/shoot/Swhish5").Play(0.04f);
         }
 
 

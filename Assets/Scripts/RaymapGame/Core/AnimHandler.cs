@@ -2,6 +2,7 @@
 //  By: Adsolution
 //================================
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,7 +45,9 @@ namespace RaymapGame {
         public void Set(int anim, bool reset) => Set(anim, currPriority, -1, AnimFlags.None, reset);
         public void Set(int anim, float priority) => Set(anim, priority, -1, AnimFlags.None, false);
         public void Set(int anim, float priority, float speed) => Set(anim, priority, speed, AnimFlags.None, false);
+        public Action<int, float, float, AnimFlags, bool> OnAnimSet;
         public void Set(int anim, float priority, float speed, AnimFlags options, bool reset) {
+            OnAnimSet?.Invoke(anim, priority, speed, options, reset);
             if (!Main.isRom) {
                 if (perso == null || priority < currPriority)
                     return;

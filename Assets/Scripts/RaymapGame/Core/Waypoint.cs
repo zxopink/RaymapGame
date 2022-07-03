@@ -50,8 +50,8 @@ namespace RaymapGame {
             if (index + 1 < graph.waypoints.Count)
                 next = graph.waypoints[index + 1];
 
-            if (bh.targets.Count != 0)
-                nextR2 = bh.targets[0].GetComponent<Waypoint>();
+            if (bh.Targets.Count != 0)
+                nextR2 = bh.Targets[0].GetComponent<Waypoint>();
         }
     }
 }
