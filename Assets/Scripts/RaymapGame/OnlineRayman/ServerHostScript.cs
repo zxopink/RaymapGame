@@ -42,19 +42,19 @@ public class ServerHostScript : NetMonoBehavour
         //Send the new player all connected players
         SharePlayersWithNewPeer(peer);
 
-        PlayerSpawn info = new();
-        //Share with everyone the new joining player
-        info.pose.pos = ray.gameObject.transform.position;
-        info.pose.rot = ray.gameObject.transform.rotation.eulerAngles;
+        Vector3Net pos = ray.gameObject.transform.position;
+        Vector3Net rot = ray.gameObject.transform.rotation.eulerAngles;
         int pId = idCount++;
+
+        PlayerSpawn info = new(new(pos, rot), pId);
+        //Share with everyone the new joining player
         players.Add(peer,pId);
-        info.id = pId;
         host.SendToAllExcept(info, peer);
 
         //Initialize the new player's controller (Rayman)
-        InitializePlayer setPlayer = new InitializePlayer();
-        setPlayer.spawnInfo = info;
-        setPlayer.isLocalPlayer = true; //Kinda useless since we use a different type (event)
+        InitializePlayer setPlayer = new InitializePlayer(info, true);
+        //setPlayer.spawnInfo = info;
+        //setPlayer.isLocalPlayer = true; //Kinda useless since we use a different type (event)
         peer.Send(setPlayer);
         Debug.LogWarning("Done sending");
     }
@@ -62,10 +62,10 @@ public class ServerHostScript : NetMonoBehavour
     {
         foreach (var ray in FindObjectsOfType<OnlineRayman>())
         {
-            PlayerSpawn info = new();
-            info.pose.pos = ray.gameObject.transform.position;
-            info.pose.rot = ray.gameObject.transform.rotation.eulerAngles;
-            info.id = ray.Id;
+            Vector3Net pos = ray.gameObject.transform.position;
+            Vector3Net rot = ray.gameObject.transform.rotation.eulerAngles;
+            int id = ray.Id;
+            PlayerSpawn info = new(new(pos,rot), id);
             peer.Send(info);
         }
     }

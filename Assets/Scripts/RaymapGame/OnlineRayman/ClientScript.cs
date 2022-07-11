@@ -32,7 +32,8 @@ public class ClientScript : NetMonoBehavour
 
     void ClienInitialize()
     {
-        Main.rayman.enabled = false; //Disable player until we get a response from the server
+        //Main.rayman.Disable(); //Disable player until we get a response from the server
+        //Main.rayman.enabled = false; 
         client.Start();
         if (SelfHosted)
             SelfConnect();
@@ -44,7 +45,8 @@ public class ClientScript : NetMonoBehavour
     public void PlayerJoined(InitializePlayer spawnInfo)
     {
         Debug.LogWarning("Spawning myself");
-        Main.rayman.enabled = true; //Disable player until we get a response from the server
+        //Main.rayman.Enable(); //Disable player until we get a response from the server
+        //Main.rayman.enabled = true; 
         var onlineComp = Main.rayman.gameObject.AddComponent<OnlineRayman>();
         onlineComp.Init(spawnInfo.spawnInfo.id, spawnInfo.isLocalPlayer /*Always true*/);
         Main.rayman.pos = spawnInfo.spawnInfo.pose.pos;
@@ -61,7 +63,11 @@ public class ClientScript : NetMonoBehavour
     private async UniTask CloneRayman(PlayerSpawn spawnInfo)
     {
         var rayComp = Main.rayman;
-        var newRay = Main.rayman.Clone<YLT_RaymanModel>(spawnInfo.pose.pos);
+
+        var newRay = Main.rayman.Clone<rayman>(spawnInfo.pose.pos);
+        //var rayGameObject = newRay.gameObject;
+        //Destroy(newRay);
+        //rayGameObject.AddComponent<rayman>();
 
         //Init online component
         var onlineComp = newRay.gameObject.AddComponent<OnlineRayman>();
@@ -70,9 +76,10 @@ public class ClientScript : NetMonoBehavour
         Main.SetMainActor(rayComp);
         Main.rayman = rayComp;
 
-        await UniTask.NextFrame();
-        await UniTask.Delay(100);
-        newRay.enabled = false; //Disable controls
+        //await UniTask.NextFrame();
+        //await UniTask.Delay(100);
+        //newRay.Disable();
+        //newRay.enabled = false; //Disable controls
 
         //newRay.anim.Set(Anim.HelicIdle);
         //newRay.anim.Set(Anim.Respawn, 1);

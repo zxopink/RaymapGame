@@ -18,7 +18,7 @@ public class OnlineRayman : NetMonoBehavour
 
     public bool Initialized => id != -1;
 
-    private YLT_RaymanModel Ray;
+    private rayman Ray;
     private AnimHandler Anim;
 
     public void Init(int id, bool isPlayer)
@@ -28,7 +28,7 @@ public class OnlineRayman : NetMonoBehavour
 
         this.id = id;
         this.isLocalPlayer = isPlayer;
-        Ray = GetComponent<YLT_RaymanModel>();
+        Ray = GetComponent<rayman>();
         Anim = Ray.anim;
         Anim.OnAnimSet = OnAnimSet;
         Debug.LogWarning("Id: " + id + " islocal? " + isLocalPlayer + " and pos at: " + Ray.pos);

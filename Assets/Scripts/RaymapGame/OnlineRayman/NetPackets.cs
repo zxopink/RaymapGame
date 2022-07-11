@@ -7,19 +7,33 @@ using UnityEngine;
 namespace NetPackets
 {
     [Serializable]
+    public record PlayerSpawn(NetPose pose, int id);
+    /*
+    [Serializable]
     public class PlayerSpawn
     {
         public NetPose pose;
         public int id;
     }
+    */
 
+    [Serializable]
+
+    public record InitializePlayer(PlayerSpawn spawnInfo, bool isLocalPlayer);
+    /*
     [Serializable]
     public class InitializePlayer
     {
         public PlayerSpawn spawnInfo;
         public bool isLocalPlayer;
     }
+    */
 
+
+    //Should be struct
+    [Serializable]
+    public record NetPose(Vector3Net pos, Vector3Net rot);
+    /*
     [Serializable]
     public struct NetPose
     {
@@ -31,7 +45,12 @@ namespace NetPackets
             this.rot = rot;
         }
     }
+    */
 
+    [Serializable]
+    public record NetAnim(int anim, float priority, float speed, AnimFlags options, bool reset);
+
+    /*
     [Serializable]
     public struct NetAnim
     {
@@ -50,7 +69,11 @@ namespace NetPackets
             this.reset = reset;
         }
     }
+    */
 
+    [Serializable]
+    public record PlayerAnim(NetAnim anim, int id);
+    /*
     [Serializable]
     public struct PlayerAnim
     {
@@ -62,7 +85,12 @@ namespace NetPackets
             this.id = id;
         }
     }
+    */
 
+    [Serializable]
+    public record PlayerPose(NetPose pose, int id);
+
+    /*
     [Serializable]
     public struct PlayerPose
     {
@@ -74,6 +102,7 @@ namespace NetPackets
             this.id = id;
         }
     }
+    */
 
     [Serializable]
     public struct Vector3Net
@@ -94,10 +123,12 @@ namespace NetPackets
             z = vec.z;
         }
 
+        public override string ToString()
+        {
+            return new Vector3(x, y, z).ToString();
+        }
+
         public static implicit operator Vector3Net(Vector3 vec) => new Vector3Net(vec);
         public static implicit operator Vector3(Vector3Net vec) => new Vector3(vec.x, vec.y, vec.z);
-
     }
-
-
 }
